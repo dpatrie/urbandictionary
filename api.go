@@ -12,6 +12,7 @@ type SearchResult struct {
 	Type    string `json:"result_type"`
 	Tags    []string
 	Results []Result `json:"list"`
+	Sounds  []string
 }
 
 type Result struct {
@@ -33,7 +34,7 @@ func Query(searchTerm string) (*SearchResult, error) {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("HTTP Response was not a 200: %d", resp.StatusCode)
 	}
 
